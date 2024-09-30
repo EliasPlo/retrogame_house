@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelin Hall of Fame</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <img src="assets/img/logo.png" alt="Retrogamehouse Logo" class="logo">
+        <button class="login-btn">Kirjaudu</button>
+    </header>
+
+    <main>
+        <h1 id="gameTitle"></h1>
+        <img id="gameImage" alt="Pelin kuva" class="game-image">
+        
+        <input type="text" id="searchPlayers" placeholder="Hae pelaajia..." onkeyup="searchPlayers()">
+        <div id="results"></div>
+    </main>
+
+    <footer>
+        <p>© Riveria 2024</p>
+    </footer>
+
+    <script src="assets/js/game.js"></script>
+</body>
+</html>
