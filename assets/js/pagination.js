@@ -26,6 +26,11 @@ function displayGames(games) {
             <p><strong>Year:</strong> ${game.launched_year}</p>
         `;
 
+        // Add a click event to the card
+        card.addEventListener('click', () => {
+            window.location.href = `peli.html?id=${game.ID}`;
+        });
+
         gameGrid.appendChild(card);
     });
 }
