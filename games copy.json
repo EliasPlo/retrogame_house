@@ -1,0 +1,205 @@
+{
+    "games": [
+        {
+            "ID": 1,
+            "game_image": "",
+            "game_name": {
+                "en": "The Oregon Trail",
+                "fi": "Oregonin Polku"
+            },
+            "description": {
+                "en": "The Oregon Trail is a pioneering educational computer game focusing on the hardships of 19th-century pioneer life on the Oregon Trail.",
+                "fi": "Oregonin Polku on koulutuksellinen tietokonepeli, joka keskittyy 1800-luvun pioneerielämän vaikeuksiin Oregonin polulla."
+            },
+            "maker": "Namco",
+            "genre": "Strategy",
+            "publisher": "Midway",
+            "launched_year": 1971,
+            "original_platforms": [
+                "HP 2100"
+            ],
+            "added_to_hall_of_fame": "2015-06-04T10:00:00.000Z",
+            "hall_of_fame": [
+                {
+                    "username": "GhostHunter",
+                    "score": 31200,
+                    "date_time": "2019-07-15T14:25:00.000Z"
+                },
+                {
+                    "username": "ArcadeMaster",
+                    "score": 35000,
+                    "date_time": "2020-05-20T15:30:00.000Z"
+                },
+                {
+                    "username": "MazeCraze",
+                    "score": 29400,
+                    "date_time": "2021-08-23T16:00:00.000Z"
+                },
+                {
+                    "username": "HighScoreKid",
+                    "score": 85000,
+                    "date_time": "2018-06-11T12:00:00.000Z"
+                },
+                {
+                    "username": "PowerPellet",
+                    "score": 90000,
+                    "date_time": "2019-10-14T13:30:00.000Z"
+                },
+                {
+                    "username": "GhostBuster",
+                    "score": 92000,
+                    "date_time": "2020-12-21T14:45:00.000Z"
+                },
+                {
+                    "username": "AlienBlaster",
+                    "score": 57000,
+                    "date_time": "2018-05-18T11:30:00.000Z"
+                },
+                {
+                    "username": "InvaderDefender",
+                    "score": 62000,
+                    "date_time": "2019-07-12T14:00:00.000Z"
+                },
+                {
+                    "username": "SpaceAce",
+                    "score": 65000,
+                    "date_time": "2020-11-02T15:15:00.000Z"
+                },
+                {
+                    "username": "RockBlaster",
+                    "score": 47000,
+                    "date_time": "2018-08-16T09:30:00.000Z"
+                },
+                {
+                    "username": "StarPilot",
+                    "score": 150000,
+                    "date_time": "2019-11-20T11:00:00.000Z"
+                },
+                {
+                    "username": "AstroAce",
+                    "score": 52000,
+                    "date_time": "2020-12-18T12:30:00.000Z"
+                },
+                {
+                    "username": "ZaxxonAce",
+                    "score": 68000,
+                    "date_time": "2018-06-14T12:30:00.000Z"
+                },
+                {
+                    "username": "IsometricHero",
+                    "score": 71000,
+                    "date_time": "2019-07-18T13:45:00.000Z"
+                },
+                {
+                    "username": "SegaMaster",
+                    "score": 74000,
+                    "date_time": "2020-08-22T15:00:00.000Z"
+                },
+                {
+                    "username": "PuzzlePro",
+                    "score": 73000,
+                    "date_time": "2018-04-12T12:30:00.000Z"
+                },
+                {
+                    "username": "QbertKing",
+                    "score": 76000,
+                    "date_time": "2019-05-18T13:45:00.000Z"
+                },
+                {
+                    "username": "CubeMaster",
+                    "score": 78000,
+                    "date_time": "2020-06-20T15:00:00.000Z"
+                },
+                {
+                    "username": "GridMaster",
+                    "score": 58000,
+                    "date_time": "2018-05-15T11:15:00.000Z"
+                },
+                {
+                    "username": "LightCycle",
+                    "score": 60000,
+                    "date_time": "2019-06-18T13:00:00.000Z"
+                },
+                {
+                    "username": "BitWarrior",
+                    "score": 63000,
+                    "date_time": "2020-07-22T15:30:00.000Z"
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "game_image": "",
+            "game_name": {
+                "en": "Pac-Man",
+                "fi": "Pac-Man"
+            },
+            "description": {
+                "en": "Pac-Man is an arcade game developed by Namco and first released in 1980. It is widely considered one of the classics of the medium.",
+                "fi": "Pac-Man on Namcon kehittämä arcade-peli, joka julkaistiin ensimmäisen kerran vuonna 1980. Sitä pidetään laajalti yhtenä keskuksen klassikoista."
+            },
+            "maker": "Namco",
+            "genre": "Arcade",
+            "publisher": "Namco",
+            "launched_year": 1980,
+            "original_platforms": [
+                "Arcade"
+            ],
+            "added_to_hall_of_fame": "2016-07-04T10:00:00.000Z",
+            "hall_of_fame": [
+                {
+                    "username": "HighScoreKid",
+                    "score": 85000,
+                    "date_time": "2018-06-11T12:00:00.000Z"
+                },
+                {
+                    "username": "PowerPellet",
+                    "score": 90000,
+                    "date_time": "2019-10-14T13:30:00.000Z"
+                },
+                {
+                    "username": "GhostBuster",
+                    "score": 92000,
+                    "date_time": "2020-12-21T14:45:00.000Z"
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "game_image": "",
+            "game_name": {
+                "en": "Space Invaders",
+                "fi": "Space Invaders"
+            },
+            "description": {
+                "en": "Space Invaders is an arcade video game created by Tomohiro Nishikado and released in 1978. It was one of the forerunners of modern video gaming.",
+                "fi": "Space Invaders on Tomohiro Nishikadon luoma arcade-videopeli, joka julkaistiin vuonna 1978. Se oli yksi modernin videopelaamisen edelläkävijöistä."
+            },
+            "maker": "Taito",
+            "genre": "Shooter",
+            "publisher": "Taito",
+            "launched_year": 1978,
+            "original_platforms": [
+                "Arcade"
+            ],
+            "added_to_hall_of_fame": "2017-08-01T11:00:00.000Z",
+            "hall_of_fame": [
+                {
+                    "username": "AlienBlaster",
+                    "score": 57000,
+                    "date_time": "2018-05-18T11:30:00.000Z"
+                },
+                {
+                    "username": "InvaderDefender",
+                    "score": 62000,
+                    "date_time": "2019-07-12T14:00:00.000Z"
+                },
+                {
+                    "username": "SpaceAce",
+                    "score": 65000,
+                    "date_time": "2020-11-02T15:15:00.000Z"
+                }
+            ]
+        }
+    ]
+}
