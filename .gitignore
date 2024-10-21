@@ -1,5 +1,9 @@
 .env
 /node_modules
 
-# elias testi sivu 
+# elias testi sivut 
 /sivusto
+/sivusto2
+/sivusto3
+
+
