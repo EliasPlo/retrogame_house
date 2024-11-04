@@ -18,7 +18,6 @@ function displayGames(games) {
 
         const gameImage = game.game_image || 'placeholder.jpg'; // Use a placeholder image if none is available
         card.innerHTML = `
-            <img src="${gameImage}" alt="${game.game_name.en}">
             <h2>${game.game_name.en}</h2>
             <p>${game.description.en}</p>
             <p><strong>Maker:</strong> ${game.maker}</p>
