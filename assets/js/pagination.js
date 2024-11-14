@@ -1,3 +1,12 @@
+async function fetchGames() {
+    try {
+        const response = await fetch('games.json');
+        const data = await response.json();
+        displayGames(data.games);
+    } catch (error) {
+        console.error("Error fetching games:", error);
+    }
+}
 const gamesPerPage = 10;
 let currentPage = 1;
 let gamesData = [];
