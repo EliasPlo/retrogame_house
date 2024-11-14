@@ -1,0 +1,76 @@
+/* Asetetaan taustaväri ja keskitettään kirjautumislomake */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* Lomakkeen ympärillä oleva laatikko */
+.login-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Otsikon tyylit */
+.login-container h2 {
+    margin-bottom: 1.5rem;
+    color: #333333;
+}
+
+/* Lomakekenttien tyyli */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+}
+
+/* Kirjautumispainike */
+button {
+    width: 70%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Viestielementti onnistumis- ja virheilmoituksia varten */
+.message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Onnistumis- ja virheilmoitusten värit */
+.message.success {
+    color: green;
+}
+
+.message.error {
+    color: red;
+}
