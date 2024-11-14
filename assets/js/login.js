@@ -1,34 +1,52 @@
 // login.js
 
-/*document.getElementById('loginForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
+document.getElementById('loginForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Estetään lomakkeen oletustoiminta (sivun uudelleenlataus)
 
+    // Haetaan lomakkeelta käyttäjänimi ja salasana
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const messageDiv = document.getElementById('message');
+    const messageElement = document.getElementById('message');
 
     try {
-        const response = await fetch('http://localhost:3000/api/users');
-        const users = await response.json();
+        // Lähetetään kirjautumispyyntö palvelimelle
+        const response = await fetch('http://localhost:3000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
 
-        // Check if username and password match a user
-        const user = users.find(u => u.username === username && u.password === password);
+        // Tarkistetaan palvelimen vastaus
+        if (response.ok) {
+            const data = await response.json();
+            
+            // Tarkistetaan, että login onnistui
+            if (data.success) {
+                messageElement.textContent = 'Kirjautuminen onnistui!';
+                messageElement.style.color = 'green';
 
-        if (user) {
-            messageDiv.innerText = 'Kirjautuminen onnistui!';
-            messageDiv.style.color = 'green';
-            // Optionally, redirect or store session data
+                // Uudelleenohjaus edit.html-sivulle kirjautumisen jälkeen
+                setTimeout(() => {
+                    window.location.href = 'edit.html'; // Ohjataan edit-sivulle
+                }, 1000); // Pieni viive ennen uudelleenohjausta
+            } else {
+                messageElement.textContent = 'Virheellinen käyttäjänimi tai salasana.';
+                messageElement.style.color = 'red';
+            }
         } else {
-            messageDiv.innerText = 'Väärä käyttäjänimi tai salasana.';
-            messageDiv.style.color = 'red';
+            messageElement.textContent = 'Verkkovirhe. Yritä myöhemmin uudelleen.';
+            messageElement.style.color = 'red';
         }
     } catch (error) {
-        messageDiv.innerText = 'Palvelinvirhe. Yritä uudelleen myöhemmin.';
-        messageDiv.style.color = 'red';
-        console.error('Error:', error);
+        messageElement.textContent = 'Verkkovirhe. Yritä myöhemmin uudelleen.';
+        messageElement.style.color = 'red';
     }
-});*/
+});
 
+
+/*
 document.getElementById('loginForm').addEventListener('submit', async function (event) {
     event.preventDefault(); 
 
@@ -54,7 +72,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
                     if (data.role === 'admin') {
                         window.location.href = '/admin.html';
                     } else {
-                        window.location.href = '/user.html'; // Käyttäjälle oma sivu
+                        window.location.href = '/index.html'; // Käyttäjälle oma sivu
                     }
                 }, 1000);
             } else {
@@ -70,4 +88,4 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         messageElement.style.color = 'red';
     }
 });
-
+*/

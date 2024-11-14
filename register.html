@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="/assets/css/register.css">-->
+    <title>Register</title>
+</head>
+<body>
+    <a href="index.html">Back to Home</a><br>
+    <h2>Rekisteröidy</h2>
+
+    <!-- Rekisteröintilomake -->
+    <form id="registerForm">
+        <div>
+            <label for="username">Käyttäjänimi:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Salasana:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="role">Rooli:</label>
+            <select id="role" name="role" required>
+                <option value="user">Käyttäjä</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <button type="submit">Rekisteröidy</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script src="/assets/js/register.js"></script>
+</body>
+</html>
