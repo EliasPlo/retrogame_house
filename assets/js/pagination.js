@@ -7,33 +7,58 @@ async function fetchGames() {
         console.error("Error fetching games:", error);
     }
 }
+const gamesPerPage = 10;
+let currentPage = 1;
+let gamesData = [];
 
-function displayGames(games) {
-    const gameGrid = document.getElementById('gameGrid');
-    gameGrid.innerHTML = ''; // Clear existing content
-
-    games.forEach(game => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        const gameImage = game.game_image || 'placeholder.jpg'; // Use a placeholder image if none is available
-        card.innerHTML = `
-            <img src="${gameImage}" alt="${game.game_name.en}">
-            <h2>${game.game_name.en}</h2>
-            <p>${game.description.en}</p>
-            <p><strong>Maker:</strong> ${game.maker}</p>
-            <p><strong>Genre:</strong> ${game.genre}</p>
-            <p><strong>Year:</strong> ${game.launched_year}</p>
-        `;
-
-        // Add a click event to the card
-        card.addEventListener('click', () => {
-            window.location.href = `peli.html?id=${game.ID}`;
-        });
-
-        gameGrid.appendChild(card);
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('data/games.json')
+    .then(response => response.json())
+    .then(data => {
+      gamesData = data.games;
+      gamesData.sort((a, b) => new Date(b.added_to_hall_of_fame) - new Date(a.added_to_hall_of_fame));
+      displayGames();
+      createPagination();
     });
+});
+
+function displayGames() {
+  const start = (currentPage - 1) * gamesPerPage;
+  const end = start + gamesPerPage;
+  const gamesToDisplay = gamesData.slice(start, end);
+  const gameGrid = document.getElementById('gameGrid');
+  
+  gameGrid.innerHTML = gamesToDisplay.map(game => `
+    <div class="game">
+      <h2><a href="peli.html?id=${game.ID}">${game.game_name.fi}</a></h2>
+      <strong>Paras tulos: ${getTopScore(game.hall_of_fame)} - Voittaja: ${getTopPlayer(game.hall_of_fame)}</strong>
+      <p>Tekijä: ${game.maker}</p>
+            <p>Genre: ${game.genre}</p>
+                  <p>Julkaisija: ${game.publisher}</p>
+                        <p>Julkaisuvuosi: ${game.launched_year}</p>
+    </div>
+  `).join('');
 }
 
-// Initialize the fetch when the script loads
-fetchGames();
+function getTopScore(hall_of_fame) {
+  return Math.max(...hall_of_fame.map(entry => entry.score));
+}
+
+function getTopPlayer(hall_of_fame) {
+  const topEntry = hall_of_fame.reduce((prev, current) => (prev.score > current.score) ? prev : current);
+  return topEntry.username;
+}
+
+function createPagination() {
+  const totalPages = Math.ceil(gamesData.length / gamesPerPage);
+  const pagination = document.getElementById('pagination');
+  
+  pagination.innerHTML = Array.from({ length: totalPages }, (_, i) => `
+    <button onclick="goToPage(${i + 1})">${i + 1}</button>
+  `).join('');
+}
+
+function goToPage(page) {
+  currentPage = page;
+  displayGames();
+}

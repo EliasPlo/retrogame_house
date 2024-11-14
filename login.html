@@ -1,0 +1,26 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/login.css">
+    <title>Kirjautuminen</title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Kirjaudu sisään</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <p id="message" class="message"></p>
+        </form>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
