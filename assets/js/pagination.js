@@ -1,6 +1,6 @@
 async function fetchGames() {
     try {
-        const response = await fetch('data/games.json');
+        const response = await fetch('games.json');
         const data = await response.json();
         displayGames(data.games);
     } catch (error) {
