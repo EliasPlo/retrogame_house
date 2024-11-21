@@ -5,12 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let gamesData = [];
     let currentEditRow = null;
 
-    // Lataa pelit
-    fetch('games.json')
+    // Lataa pelit JSON-tiedostosta
+    fetch('/data/games.json')
         .then(response => response.json())
         .then(data => {
             gamesData = data.games;
-            //console.log(gamesData);
             gamesData.forEach(game => {
                 const option = document.createElement('option');
                 option.value = game.ID;
@@ -22,26 +21,23 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Virhe pelitietojen lataamisessa:', error);
         });
 
+    // Lataa valittu peli
     loadGameButton.addEventListener('click', function () {
         const selectedGameId = gameSelector.value;
-        console.log('Selected game ID:', selectedGameId);  // Tulosta valittu peli-ID
-        //console.log('Games data:', gamesData);
         const selectedGame = gamesData.find(game => String(game.ID) === String(selectedGameId));
         if (selectedGame) {
-            //console.log('Selected game:', selectedGame);  // Jos peli löytyy
-            displayGame(selectedGame);  // Jatka pelin näyttämistä
+            displayGame(selectedGame);
         } else {
             console.error('Peliä ei löydy valitulla ID:llä:', selectedGameId);
-        }   
+        }
     });
 
-    // Lataa peli
+    // Näytä pelin tiedot ja tulokset
     function displayGame(game) {
         document.getElementById('editGameName').innerText = game.game_name.fi;
 
-        const resultsList = document.getElementById('resultsList');
-        resultsList.innerHTML = ''; // Tyhjennetään lista ennen lataamista
-        
+        resultsList.innerHTML = ''; // Tyhjennä lista ennen lataamista
+
         game.hall_of_fame.forEach(score => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -56,127 +52,90 @@ document.addEventListener('DOMContentLoaded', function () {
             resultsList.appendChild(row);
         });
 
-        document.getElementById('editResults').style.display = 'block'; // Näytetään tulokset
+        document.getElementById('editResults').style.display = 'block'; // Näytä tulokset
     }
 
-  // Lisää tai päivitä tulos
-  document.getElementById('addScoreForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+    // Lisää tai päivitä tulos
+    document.getElementById('addScoreForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const score = document.getElementById('score').value;
-    const selectedGameId = gameSelector.value;
-    const game = gamesData.find(game => String(game.ID) === String(selectedGameId));
+        const username = document.getElementById('username').value;
+        const score = document.getElementById('score').value;
+        const selectedGameId = gameSelector.value;
+        const game = gamesData.find(game => String(game.ID) === String(selectedGameId));
 
-    if (game) {
-        if (currentEditRow) {
-            // Päivitä olemassa oleva rivi
-            const rowCells = currentEditRow.cells;
-            rowCells[0].innerText = username;
-            rowCells[1].innerText = score;
-            currentEditRow = null; // Nollaa muokattava rivi
-        } else {
-            // Lisää uusi rivi
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${username}</td>
-                <td>${score}</td>
-                <td>${new Date().toLocaleDateString()}</td>
-                <td>
-                    <button class="edit-btn">Muokkaa</button>
-                    <button class="delete-btn">Poista</button>
-                </td>
-            `;
-            resultsList.appendChild(newRow);
+        if (game) {
+            if (currentEditRow) {
+                // Päivitä olemassa oleva rivi
+                const rowCells = currentEditRow.cells;
+                rowCells[0].innerText = username;
+                rowCells[1].innerText = score;
+                currentEditRow = null; // Nollaa muokattava rivi
+            } else {
+                // Lisää uusi rivi ja päivitä dataan
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${username}</td>
+                    <td>${score}</td>
+                    <td>${new Date().toLocaleDateString()}</td>
+                    <td>
+                        <button class="edit-btn">Muokkaa</button>
+                        <button class="delete-btn">Poista</button>
+                    </td>
+                `;
+                resultsList.appendChild(newRow);
+
+                game.hall_of_fame.push({
+                    username,
+                    score: parseInt(score),
+                    date_time: new Date().toISOString()
+                });
+            }
+
+            // Tyhjennä lomake
+            document.getElementById('addScoreForm').reset();
+
+            // Tallenna uusi tulos tiedostoon
+            saveDataToFile();
         }
+    });
 
-        // Tyhjennä lomake
-        document.getElementById('addScoreForm').reset();
-
-        // Tallenna uusi tulos games.json-tiedostoon
-        saveScoreToFile(game.ID, { username, score });
+    // Tallenna päivitetty JSON-tiedosto
+    function saveDataToFile() {
+        fetch('/data/games.json', {
+            method: 'PUT', // Tai POST riippuen backendista
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ games: gamesData })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Tulokset tallennettu onnistuneesti.');
+            } else {
+                console.error('Virhe tallennettaessa tuloksia.');
+            }
+        })
+        .catch(error => {
+            console.error('Virhe tallennuksessa:', error);
+        });
     }
-});
 
-    // Tallenna tulos games.json-tiedostoon
-    function saveScoreToFile(gameId, scoreData) {
-        fetch('data/games.json')
-            .then(response => response.json())
-            .then(data => {
-                const game = data.games.find(g => String(g.ID) === String(gameId));
-                if (game) {
-                    game.hall_of_fame.push({
-                        username: scoreData.username,
-                        score: scoreData.score,
-                        date_time: new Date().toISOString()
-                    });
-                }
-
-                fetch('data/games.json', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Tulokset tallennettu onnistuneesti.');
-                    } else {
-                        console.error('Virhe tulosten tallentamisessa.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Virhe:', error);
-                });
-            })
-            .catch(error => {
-                console.error('Virhe pelitietojen lataamisessa:', error);
-            });
-          } 
-    /*function saveScoreToFile(gameId, scoreData) {
-                fetch('/data/games.json', { // Muuta tämä
-                    method: 'GET',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const game = data.games.find(g => String(g.ID) === String(gameId));
-                    if (game) {
-                        game.hall_of_fame.push({
-                            username: scoreData.username,
-                            score: scoreData.score,
-                            date_time: new Date().toISOString()
-                        });
-                    }
-            
-                    // Tee PUT-pyyntö
-                    fetch('/data/games.json', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('Tulokset tallennettu onnistuneesti.');
-                        } else {
-                            console.error('Virhe tulosten tallentamisessa.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Virhe:', error);
-                    });
-                })
-                .catch(error => {
-                    console.error('Virhe pelitietojen lataamisessa:', error);
-                });
-            }*/
-    // Poistotoiminto
+    // Poista tai muokkaa tulosta
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('delete-btn')) {
             const row = event.target.closest('tr');
-            row.remove(); 
+            const username = row.cells[0].innerText;
+
+            // Poista tulos datasta
+            const selectedGameId = gameSelector.value;
+            const game = gamesData.find(game => String(game.ID) === String(selectedGameId));
+            if (game) {
+                game.hall_of_fame = game.hall_of_fame.filter(score => score.username !== username);
+                saveDataToFile(); // Päivitä tiedosto
+            }
+
+            row.remove(); // Poista rivi taulukosta
         } else if (event.target.classList.contains('edit-btn')) {
             const row = event.target.closest('tr');
             const username = row.cells[0].innerText;
@@ -184,6 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById('username').value = username;
             document.getElementById('score').value = score;
+
+            currentEditRow = row; // Aseta muokattava rivi
         }
     });
 });

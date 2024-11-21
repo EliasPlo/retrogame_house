@@ -9,18 +9,20 @@
 </head>
 <body>
     <nav class="topnav">
-        <a class="active" href="index.html">Koti</a>
-        <!--<a href="edit.html">Muokkaa</a>-->
+        <a href="index.html">Koti</a>
         <a href="login.html">Kirjaudu</a>
-        <a href="register.html">Rekisteröidy</a>
-    </nav>
-        <h1>Game Gallery</h1>
-        <div class="grid" id="gameGrid"></div>
-        <div id="pagination"></div>
+        <!--<a href="edit.html">Muokkaa</a>
+        <a href="register.html">Rekisteröidy</a>-->
+    </nav><br>
+        <h1>Game Gallery</h1><br>
+        <input type="text" id="searchGames" placeholder="Hae pelejä..." onkeyup="searchGames()">
+            <div class="grid" id="gameGrid"></div>
+                <div id="pagination"></div>
     <footer>
         <p>© Riveria 2024</p>
         <a href="games.json">data</a>
     </footer>
     <script src="assets/js/pagination.js"></script>
+    <script src="assets/js/search.js"></script>
 </body>
 </html>

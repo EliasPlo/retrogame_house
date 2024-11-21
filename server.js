@@ -1,77 +1,115 @@
-require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
-const session = require('express-session');
-const User = require('./assets/models/User'); // Ladataan User-malli
+const bodyParser = require('body-parser');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+
 const app = express();
+const PORT = 3000;
 
-const PORT = process.env.PORT || 3000;
-mongoose.connect(process.env.MONGODB_URI, { /*useNewUrlParser: true, useUnifiedTopology: true*/ })
-    .then(() => console.log('Yhdistetty MongoDB-tietokantaan'))
-    .catch((error) => console.error('Virhe yhdistettäessä MongoDB:hen:', error));
-
-app.use(express.json());
-app.use(express.static('public')); // Tarjoaa staattiset tiedostot, kuten HTML, CSS ja JS
-app.use(session({
-    secret: 'yourSecretKey',
-    resave: false,
-    saveUninitialized: false
-}));
+// Ota käyttöön CORS, JSON-käsittely ja body-parser
 app.use(cors());
+app.use(bodyParser.json());
 
-// Kirjautumisreitti
-app.post('/api/login', async (req, res) => {
+// Aseta JSON-tiedoston polku
+const DATA_FILE = path.join(__dirname, 'data/games.json');
+//const USERS_FILE = path.join(__dirname, 'data/users.json');
+const USERS_FILE = path.join(__dirname, 'data', 'users.json');
+
+app.post('/api/register', (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username, password });
 
-    if (user) {
-        req.session.user = { username: user.username, role: user.role };
-        res.json({ success: true, message: 'Login successful!', role: user.role });
-    } else {
-        res.status(401).json({ success: false, message: 'Invalid username or password.' });
-    }
-});
-
-app.post('/api/register', async (req, res) => {
-    const { username, password, role } = req.body;
-
-    // Tarkistetaan, onko käyttäjänimi jo käytössä
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-        return res.status(400).json({ message: 'Käyttäjänimi on jo käytössä.' });
+    if (!username || !password) {
+        return res.status(400).json({ message: 'Käyttäjänimi ja salasana ovat pakollisia.' });
     }
 
-    // Luodaan uusi käyttäjä ja tallennetaan tietokantaan
-    const newUser = new User({
-        username,
-        password, // Tässä kohtaa salasana tulee tallentaa salattuna, esimerkiksi bcrypt:lla
-        role
-    });
+// Lue olemassa olevat käyttäjät
+fs.readFile(USERS_FILE, 'utf8', (err, data) => {
+    if (err) {
+        console.error('Virhe luettaessa käyttäjätietoja:', err);
+        return res.status(500).json({ message: 'Palvelinvirhe.' });
+    }
 
+    let users;
     try {
-        await newUser.save();
-        res.status(201).json({ message: 'Rekisteröinti onnistui.' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Virhe rekisteröinnissä.' });
+        users = JSON.parse(data || '[]'); // Jos tiedosto on tyhjä, käytä oletuksena tyhjää taulukkoa
+    } catch (parseErr) {
+        console.error('Virhe parsittaessa käyttäjätietoja:', parseErr);
+        return res.status(500).json({ message: 'Tietojen käsittely epäonnistui.' });
     }
+
+    /*/ Tarkista, onko käyttäjänimi jo olemassa
+    if (users.some(user => user.username === username)) {
+        return res.status(409).json({ message: 'Käyttäjänimi on jo käytössä.' });
+    }*/
+
+    // Lisää uusi käyttäjä
+    const newUser = { username, password }; // Salasanojen suojaus tulee lisätä tuotantokäyttöön
+    users.push(newUser);
+
+    // Tallenna päivitetty käyttäjälista
+    fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2), 'utf8', (writeErr) => {
+        if (writeErr) {
+            console.error('Virhe tallentaessa käyttäjätietoja:', writeErr);
+            return res.status(500).json({ message: 'Palvelinvirhe tallentaessa tietoja.' });
+        }
+
+        res.status(201).json({ message: 'Rekisteröinti onnistui!' });
+    });
+});
 });
 
-// Uloskirjautumisreitti
-app.post('/api/logout', (req, res) => {
-    req.session.destroy();
-    res.json({ success: true, message: 'Logged out successfully.' });
+// Palauta games.json-tiedoston sisältö
+app.get('/data/games.json', (req, res) => {
+    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Virhe luettaessa tiedostoa:', err);
+            return res.status(500).send('Virhe tiedoston lataamisessa.');
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    });
 });
 
-// Reitti suojatulle sivulle (admin)
-/*app.get('/admin.html', (req, res, next) => {
-    if (!req.session.user) {
-        return res.redirect('./login.html');
-    }
-    next();
-});*/
+// Päivitä games.json-tiedosto
+app.put('/data/games.json', (req, res) => {
+    const updatedData = req.body;
 
+    // Tallenna JSON-tiedosto
+    fs.writeFile(DATA_FILE, JSON.stringify(updatedData, null, 2), 'utf8', (err) => {
+        if (err) {
+            console.error('Virhe tallentaessa tiedostoa:', err);
+            return res.status(500).send('Virhe tiedoston tallentamisessa.');
+        }
+        res.send('Data päivitetty onnistuneesti.');
+    });
+});
+
+// Palvele index.html suoraan
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/edit', (req, res) => {
+    res.sendFile(path.join(__dirname, 'edit.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'register.html'));
+});
+
+// Palvele staattiset tiedostot (esim. script.js)
+app.use(express.static(__dirname));
+
+// Käynnistä palvelin
 app.listen(PORT, () => {
     console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
 });

@@ -14,7 +14,7 @@ body {
 
 /* Navigation bar styling */
 .topnav {
-  background-color: #333;
+  background-color: #757575;
   overflow: hidden;
 }
 
@@ -24,18 +24,23 @@ body {
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
+  background-color: #355174;
   text-decoration: none;
   font-weight: bold;
 }
 
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: #395475;
   color: black;
 }
 
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
+#searchGames {
+  background-color: rgb(190, 189, 189);
+  border: #333;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  color: #333;
 }
 
 /* Main Container */
