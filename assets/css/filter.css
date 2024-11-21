@@ -1,0 +1,58 @@
+/* Add these styles to your styles.css file */
+
+/* Styling for the filter container */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: center; /* Centers the filter container */
+}
+
+/* Styling for individual filter labels and select elements */
+.filters label {
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+.filters select {
+    width: 180px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* On hover, make the select options more noticeable */
+.filters select:hover {
+    border-color: #007BFF;
+}
+
+/* Make the labels and dropdowns stack vertically on smaller screens */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filters label {
+        text-align: left;
+        width: auto;
+    }
+
+    .filters select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Style for the filter section's container for a clean look */
+.filters label, .filters select {
+    display: block;
+    text-align: left;
+}

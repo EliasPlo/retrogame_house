@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/filterr.css
+    ">
     <link rel="shortcut icon" href="assests/img/favicon.ico" type="image/x-icon">
     <title>Retrogamehouse Hall of Fame</title>
 </head>
@@ -14,7 +16,38 @@
         <!--<a href="edit.html">Muokkaa</a>
         <a href="register.html">Rekisteröidy</a>-->
     </nav><br>
-        <h1>Game Gallery</h1><br>
+    <h1>Game Gallery</h1><br>
+    <!-- Add these filters above the game gallery section -->
+        <div class="filters">
+            <label for="yearFilter">Vuosi:</label>
+            <select id="yearFilter">
+              <option value="">Kaikki</option>
+              <option value="1980">1980</option>
+              <option value="1990">1990</option>
+              <option value="2000">2000</option>
+              <option value="1971">1971</option>
+              <option value="1978">1978</option>
+              <option value="1981">1981</option>
+              <option value="1982">1982</option>
+              <option value="1985">1985</option>
+              <option value="1986">1986</option>
+              <option value="1987">1987</option>
+              <option value="1979">1979</option>
+            </select>
+            <label for="makerFilter">Tekijä:</label>
+            <input type="text" id="makerFilter" placeholder="Etsi tekijän mukaan">
+            <label for="publisherFilter">Julkaisija:</label>
+            <input type="text" id="publisherFilter" placeholder="Etsi julkaisijan mukaan">
+            <label for="genreFilter">Genre:</label>
+            <select id="genreFilter">
+              <option value="">Kaikki</option>
+              <option value="Arcade">Arcade</option>
+              <option value="Action">Action</option>
+              <option value="Platformer">Platformer</option>
+            </select>
+          </div>
+  <!-- Existing content for Game Gallery -->
+
         <input type="text" id="searchGames" placeholder="Hae pelejä..." onkeyup="searchGames()">
             <div class="grid" id="gameGrid"></div>
                 <div id="pagination"></div>
@@ -24,5 +57,6 @@
     </footer>
     <script src="assets/js/pagination.js"></script>
     <script src="assets/js/search.js"></script>
+    <script src="/assets/js/filter.js"></script>
 </body>
 </html>
