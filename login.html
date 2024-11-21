@@ -1,27 +1,34 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="/assets/css/login.css">-->
-    <title>Kirjautuminen</title>
+    <title>Kirjaudu - Retrogamehouse - Admin</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <div class="login-container">
-        <a href="index.html">Back to Home</a><br>
-        <h3>Kirjaudu sisään</h3><br>
+    <header>
+        <img src="assets/img/logo.png" alt="Retrogamehouse Logo" class="logo">
+    </header>
+    <h1>Kirjaudu sisään</h1><br>
+    <main>
         <form id="loginForm">
-            <div class="form-group">
-                <label for="username">Username:</label><br>
-                <input type="text" id="username" name="username" required><br>
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" required><br>
-            </div>
-            <button type="submit">Login</button>
-            <p id="message" class="message"></p>
+            <label for="username">Käyttäjänimi:</label>
+            <input type="text" id="username" required><br>
+
+            <label for="password">Salasana:</label>
+            <input type="password" id="password" required><br>
+
+            <button type="submit">Kirjaudu</button>
         </form>
-    </div>
-    <script src="login.js"></script>
+        <p id="loginMessage"></p>
+    </main>
+
+    <footer>
+        <p> &copy; Riveria 2024</p>
+    </footer>
+
+    <script src="assets/js/login.js"></script>
+    <script src="assets/js/user.js"></script>
 </body>
 </html>

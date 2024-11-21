@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
     // Tallenna tulos games.json-tiedostoon
-    /*function saveScoreToFile(gameId, scoreData) {
+    function saveScoreToFile(gameId, scoreData) {
         fetch('data/games.json')
             .then(response => response.json())
             .then(data => {
@@ -133,9 +133,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error('Virhe pelitietojen lataamisessa:', error);
             });
-    }*/
-
-            function saveScoreToFile(gameId, scoreData) {
+          } 
+    /*function saveScoreToFile(gameId, scoreData) {
                 fetch('/data/games.json', { // Muuta tämä
                     method: 'GET',
                 })
@@ -172,9 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(error => {
                     console.error('Virhe pelitietojen lataamisessa:', error);
                 });
-            }
-               
-
+            }*/
     // Poistotoiminto
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('delete-btn')) {
@@ -190,135 +187,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-/*document.addEventListener("DOMContentLoaded", () => {
-    const userTypeSelect = document.getElementById("userType");
-    const gameSelect = document.getElementById("gameSelect");
-    const editForm = document.getElementById("editForm");
-
-    let gamesData = [];
-    let currentGame = null;
-
-    // Lataa JSON data
-    async function loadGameData() {
-        try {
-            const response = await fetch(".../data/games.json");
-            gamesData = await response.json();
-            populateGameSelect();
-        } catch (error) {
-            console.error("Error loading game data:", error);
-        }
-    }
-
-    // Täytä pelivalikko
-    function populateGameSelect() {
-        gamesData
-            .filter(game => game.ID >= 1 && game.ID <= 21) // Valitse ID:t väliltä 1-21
-            .forEach(game => {
-                const option = document.createElement("option");
-                option.value = game.ID;
-                option.textContent = game.game_name.en;
-                gameSelect.appendChild(option);
-            });
-    }
-
-    // Aseta lomakkeen kentät valitulle pelille
-    function loadGameToForm(game) {
-        currentGame = game;
-        document.getElementById("gameId").value = game.ID;
-        document.getElementById("gameNameEn").value = game.game_name.en;
-        document.getElementById("gameNameFi").value = game.game_name.fi;
-        document.getElementById("descriptionEn").value = game.description.en;
-        document.getElementById("descriptionFi").value = game.description.fi;
-        document.getElementById("maker").value = game.maker;
-        document.getElementById("genre").value = game.genre;
-        document.getElementById("publisher").value = game.publisher;
-        document.getElementById("launchedYear").value = game.launched_year;
-        document.getElementById("platforms").value = game.original_platforms.join(", ");
-        
-        // Hall of Fame -listan päivitys
-        const hallOfFameList = document.getElementById("hallOfFameList");
-        hallOfFameList.innerHTML = "";
-        game.hall_of_fame.forEach(entry => {
-            const entryDiv = document.createElement("div");
-            entryDiv.innerText = `${entry.username}: ${entry.score} (Date: ${entry.date_time})`;
-            hallOfFameList.appendChild(entryDiv);
-        });
-
-        updateFormAccessibility();
-        editForm.style.display = "block"; // Näytä lomake, kun peli on ladattu
-    }
-
-    // Päivitä lomakkeen oikeudet käyttäjätyypin perusteella
-    function updateFormAccessibility() {
-        const userType = userTypeSelect.value;
-        const adminFields = ["maker", "genre", "publisher", "launchedYear", "platforms"];
-        const hallOfFameList = document.getElementById("hallOfFameList");
-
-        if (userType === "admin") {
-            adminFields.forEach(field => document.getElementById(field).disabled = false);
-            hallOfFameList.style.display = "block";
-        } else {
-            adminFields.forEach(field => document.getElementById(field).disabled = true);
-            hallOfFameList.style.display = "none";
-        }
-    }
-
-    // Lomakkeen käsittely
-    editForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const userType = userTypeSelect.value;
-
-        // Päivitä pelitiedot lomakkeen perusteella
-        currentGame.game_name.en = document.getElementById("gameNameEn").value;
-        currentGame.game_name.fi = document.getElementById("gameNameFi").value;
-        currentGame.description.en = document.getElementById("descriptionEn").value;
-        currentGame.description.fi = document.getElementById("descriptionFi").value;
-
-        // Admin-käyttäjä voi päivittää kaikki kentät
-        if (userType === "admin") {
-            currentGame.maker = document.getElementById("maker").value;
-            currentGame.genre = document.getElementById("genre").value;
-            currentGame.publisher = document.getElementById("publisher").value;
-            currentGame.launched_year = parseInt(document.getElementById("launchedYear").value);
-            currentGame.original_platforms = document.getElementById("platforms").value.split(",").map(platform => platform.trim());
-        }
-
-        try {
-            await saveGameData();
-            alert("Changes saved successfully!");
-        } catch (error) {
-            console.error("Error saving data:", error);
-            alert("Error saving changes.");
-        }
-    });
-
-    // Tallenna päivitetty JSON data
-    async function saveGameData() {
-        try {
-            await fetch("data/games.json", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(gamesData, null, 2)
-            });
-        } catch (error) {
-            throw new Error("Failed to save game data.");
-        }
-    }
-
-    // Pelin valinta valikosta
-    gameSelect.addEventListener("change", () => {
-        const selectedGameId = parseInt(gameSelect.value);
-        const selectedGame = gamesData.find(game => game.ID === selectedGameId);
-        if (selectedGame) {
-            loadGameToForm(selectedGame);
-        } else {
-            editForm.style.display = "none"; // Piilota lomake, jos peliä ei ole valittu
-        }
-    });
-
-    userTypeSelect.addEventListener("change", updateFormAccessibility);
-    loadGameData();
-});*/

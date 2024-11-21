@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muokkaa Tuloksia - Retrogamehouse</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/edit2.css">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
-        
         <a id="edit-nappi" href="index.html" class="edit-btn">etusivu</a>
     </header>
 
@@ -20,7 +19,6 @@
                 <option value="">Valitse peli</option>
             </select>
             <button id="loadGameButton">Lataa peli</button>
-
             <div id="editResults" style="display: none;">
                 <h2>Peli: <span id="editGameName"></span></h2>
                 <h3>Tulokset</h3>
@@ -35,14 +33,13 @@
                     </thead>
                     <tbody id="resultsList"></tbody>
                 </table>
-
-                <h3>Lisää uusi tulos</h3>
                 <form id="addScoreForm">
+                    <h3>Lisää uusi tulos</h3><br>
                     <label for="username">Käyttäjänimi:</label>
-                    <input type="text" id="username" required>
+                    <input type="text" id="username" required><br>
                     
                     <label for="score">Tulos:</label>
-                    <input type="number" id="score" required>
+                    <input type="number" id="score" required><br>
                     
                     <button type="submit">Lisää Tulos</button>
                 </form>
@@ -54,6 +51,6 @@
         <p> &copy; Riveria 2024</p>
     </footer>
 
-    <script src="assets/js/document.js"></script>
+    <script src="assets/js/edit.js"></script>
 </body>
 </html>
