@@ -7,35 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Alkuperäinen pelin aloitusruutu -->
     <div id="start-screen">
         <h1>Kaksinpeli Mato</h1>
-        <button id="start-button">Aloita</button>
+        <button id="start-button" aria-label="Aloita peli">Aloita</button>
     </div>
 
-    <canvas id="game-canvas" width="600" height="600"></canvas>
+    <!-- Pelialue (Canvas) -->
+    <canvas id="game-canvas" width="600" height="600" aria-label="Pelin kenttä"></canvas>
 
+    <!-- Peli päättyi -ruutu -->
     <div id="end-screen" style="display: none;">
         <h1>Peli päättyi!</h1>
         <p>Pisteesi: <span id="score-display"></span></p>
         <p>Haluatko tallentaa tuloksen?</p>
-        <button id="save-yes">Kyllä</button>
-        <button id="save-no">Ei</button>
+        <button id="save-yes" aria-label="Tallenna tulos">Kyllä</button>
+        <button id="save-no" aria-label="Älä tallenna tulosta">Ei</button>
 
+        <!-- Tulos tallentamisen kenttä -->
         <div id="save-score" style="display: none;">
-            <input type="text" id="player-name" placeholder="Syötä nimesi">
-            <button id="submit-score">Tallenna</button>
+            <input type="text" id="player-name" placeholder="Syötä nimesi" aria-label="Pelaajan nimi">
+            <button id="submit-score" aria-label="Lähetä tulos">Tallenna</button>
         </div>
 
-        <button id="play-again">Pelaa uudelleen</button>
+        <!-- Uudelleen pelaamisen painike -->
+        <button id="play-again" aria-label="Pelaa uudelleen">Pelaa uudelleen</button>
     </div>
 
+    <!-- Hall of Fame -lista -->
     <div id="hall-of-fame">
         <h2>Hall of Fame</h2>
         <ul id="score-list">
-            <!-- Tulokset päivittyvät tähän -->
+            <!-- Tuloslistaus päivittyy tähän -->
         </ul>
     </div>
 
+    <!-- Sisällytetään pelilogiikka -->
     <script src="matopeli.js"></script>
 </body>
 </html>

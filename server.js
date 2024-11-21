@@ -98,8 +98,8 @@ app.get('/edit', (req, res) => {
     res.sendFile(path.join(__dirname, 'edit.html'));
 });
 
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
+app.get('/snake', (req, res) => {
+    res.sendFile(path.join(__dirname, 'matopeli/snake.html'));
 });
 
 app.get('/register', (req, res) => {
